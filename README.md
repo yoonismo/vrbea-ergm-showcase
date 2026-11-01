@@ -1,14 +1,14 @@
 # vrbea-ergm-showcase
 
-Monte Carlo study of two standard ERGM estimators, the maximum pseudo-likelihood
+Monte Carlo simulations of two standard ERGM estimators, the maximum pseudo-likelihood
 estimator (MPLE) and MCMC-based maximum likelihood (MCMC-MLE), run from Python.
-Networks are simulated and estimated with the R package `ergm` through `rpy2`;
-replications run in parallel with `joblib`, and results are written to CSV as
-each replication finishes.
+Networks are sampled and estimated with the R package `ergm` through `rpy2`;
+simulations run in parallel with `joblib`, and results are written to CSV as
+each run finishes.
 
 ## What it does
 
-1. **Simulate networks** (`ergm_showcase.utils.graph_generator`): `nsims` networks
+1. **Generate networks** (`ergm_showcase.utils.graph_generator`): `nsims` networks
    from an ERGM with `edges + triangles`, drawn from one MCMC chain with
    `MCMC.burnin = 1e7` and `MCMC.interval = 1e4`, with a fixed seed.
 2. **Estimate each network** (`ergm_showcase.utils.ergm_estimator`):
@@ -17,9 +17,9 @@ each replication finishes.
      `main.method = "Stochastic-Approximation"`, `MCMC.burnin = 1e5`,
      `MCMC.interval = 1e3`
    - Starting value for MCMC-MLE: truth + U[-perturb, perturb], drawn with seed
-     `seed_num + g` for replication `g`.
+     `seed_num + g` for each network `g`.
 3. **Run in parallel** (`experiments/run_simulations.py`): one worker process per
-   replication, each with its own embedded R session.
+   run, each with its own embedded R session.
 4. **Summarize** (`experiments/summarize_showcase.py`): bias, mean, median, SE,
    5% and 95% quantiles of each estimator, and computation time.
 
@@ -71,7 +71,7 @@ allocated to the job.
 ## Output
 
 `results/<date>_obs<n>_MPLE_MCMCMLE_<terms>_<param>_perturb<perturb>.csv`,
-one row per replication:
+one row per simulation:
 
 | column | content |
 |---|---|

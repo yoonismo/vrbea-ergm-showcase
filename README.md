@@ -4,7 +4,9 @@ Monte Carlo simulations of two standard ERGM estimators, the maximum pseudo-like
 estimator (MPLE) and MCMC-based maximum likelihood (MCMC-MLE), run from Python.
 Networks are sampled and estimated with the R package `ergm` through `rpy2`;
 simulations run in parallel with `joblib`, and results are written to CSV as
-each run finishes.
+each run finishes. The code runs on a laptop or on a multi-core node of an HPC
+cluster (e.g. a Slurm job), with one worker process per allocated CPU; see
+[docs/R_packages.md](docs/R_packages.md) for setting up R on a cluster.
 
 ## What it does
 
